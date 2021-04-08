@@ -41,7 +41,7 @@ app.on("ready", () => {
             id: todoList.length +1,
             value: data
         })
-        console.log(todoList);
+        mainWindow.webContents.send("todo:addItem", todoList)
         newWindow.close()
         newWindow = null
     })
