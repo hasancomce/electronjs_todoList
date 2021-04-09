@@ -35,7 +35,7 @@
         })
 
         saveBtn.addEventListener("click", () => {
-            ipcRenderer.send("key:newTodoSave", inputValue.value)
+            ipcRenderer.send("key:newTodoSave", { ref: "window", value: inputValue.value })
         })
 
     </script>

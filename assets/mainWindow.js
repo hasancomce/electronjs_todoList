@@ -1,6 +1,14 @@
 const electron = require('electron');
 const { ipcRenderer } = electron;
 
+checkTodoCount()
+
+const inputValue = document.querySelector("#inputValue")
+const addBtn = document.querySelector("#addBtn")
+addBtn.addEventListener("click", () => {
+    ipcRenderer.send("key:newTodoSave", { ref: "main", value: inputValue.value })
+})
+
 ipcRenderer.on("todo:addItem", (err, todo) => {
     
     // container
@@ -30,10 +38,24 @@ ipcRenderer.on("todo:addItem", (err, todo) => {
 
     container.appendChild(row)
 
-    deleteBtn.addEventListener("click", () => {
+    checkTodoCount()
+
+    deleteBtn.addEventListener("click", (e) => {
         if (confirm("Bu kaydı silmek istediğinizden emin misiniz?")) {
             //
-            console.log("Silindi!");
+            console.log("Silindi!", e.target.parentNode.parentNode);
+            e.target.parentNode.parentNode.remove()
+            checkTodoCount()
         }
     })
 })
+
+function checkTodoCount() {
+    const container = document.querySelector(".todo-container")
+    const alertContainer = document.querySelector(".alert-container")
+    if (container.children.length !== 0) {
+        alertContainer.style.display = "none"
+    } else {
+        alertContainer.style.display = "block"
+    }
+}

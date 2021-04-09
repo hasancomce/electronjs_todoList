@@ -39,12 +39,14 @@ app.on("ready", () => {
     ipcMain.on("key:newTodoSave", (err, data) => {
         let todo = {
             id: todoList.length +1,
-            value: data
+            value: data.value
         }
         todoList.push(todo)
         mainWindow.webContents.send("todo:addItem", todo)
-        newWindow.close()
-        newWindow = null
+        if (data.ref == "window") {
+            newWindow.close()
+            newWindow = null
+        }
     })
 
     mainWindow.on("close", () => {
