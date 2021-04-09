@@ -5,8 +5,17 @@ checkTodoCount()
 
 const inputValue = document.querySelector("#inputValue")
 const addBtn = document.querySelector("#addBtn")
+
+inputValue.addEventListener("keypress", (e) => {
+    if (e.keyCode == 13) {
+        ipcRenderer.send("key:newTodoSave", { ref: "main", value: e.target.value })
+        e.target.value = ""
+    }
+})
+
 addBtn.addEventListener("click", () => {
     ipcRenderer.send("key:newTodoSave", { ref: "main", value: inputValue.value })
+    inputValue.value = ""
 })
 
 ipcRenderer.on("todo:addItem", (err, todo) => {

@@ -36,6 +36,14 @@
 
         saveBtn.addEventListener("click", () => {
             ipcRenderer.send("key:newTodoSave", { ref: "window", value: inputValue.value })
+            // inputValue.value = ""
+        })
+
+        inputValue.addEventListener("keypress", (e) => {
+            if (e.keyCode == 13) {
+                ipcRenderer.send("key:newTodoSave", { ref: "window", value: e.target.value })
+                // e.target.value = ""
+            }
         })
 
     </script>
