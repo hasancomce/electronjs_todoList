@@ -53,6 +53,7 @@ ipcRenderer.on("todo:addItem", (err, todo) => {
 function checkTodoCount() {
     const container = document.querySelector(".todo-container")
     const alertContainer = document.querySelector(".alert-container")
+    document.querySelector(".total-count-container").innerText = container.children.length
     if (container.children.length !== 0) {
         alertContainer.style.display = "none"
     } else {
