@@ -37,11 +37,12 @@ app.on("ready", () => {
     })
 
     ipcMain.on("key:newTodoSave", (err, data) => {
-        todoList.push({
+        let todo = {
             id: todoList.length +1,
             value: data
-        })
-        mainWindow.webContents.send("todo:addItem", todoList)
+        }
+        todoList.push(todo)
+        mainWindow.webContents.send("todo:addItem", todo)
         newWindow.close()
         newWindow = null
     })
