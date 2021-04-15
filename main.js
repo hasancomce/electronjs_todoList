@@ -2,6 +2,7 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 const { ipcRenderer } = require('electron');
+// const { connectDatabase } = require('./lib/connectDatabase');
 
 const { app, BrowserWindow, Menu, ipcMain } = electron;
 
@@ -48,6 +49,10 @@ app.on("ready", () => {
             newWindow = null
         }
     })
+
+    // mainWindow.webContents.once("dom-ready", () => {
+    //     connectDatabase()
+    // })
 
     mainWindow.on("close", () => {
         app.quit()
